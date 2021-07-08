@@ -1,0 +1,36 @@
+[
+    {
+      "id": "12",
+      "nome": "Notebook"
+    },
+    {
+        "id": "13",
+        "nome": "Monitor"
+      },
+    {
+        "id": "14",
+        "nome": "Cpu"
+      },
+      {
+        "id": "15",
+        "nome": "Mouse"
+      },
+      {
+        "id": "16",
+        "nome": "Teclado"
+      },
+      {
+        "id": "17",
+        "nome": "Escrivaninha"
+      },
+      {
+        "id": "18",
+        "nome": "Cadeira"
+      }, 
+      {
+        "id": "19",
+        "nome": "Fone"
+      }
+
+  
+  ]

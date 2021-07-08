@@ -1,18 +1,14 @@
-const  controllers  =  require ( "../controllers/devsController.js" )
-const  express  =  require ( "express" ) ;
+const controllers = require ( "../controllers/devsController.js" )
+const express = require ( "express" ) ;
+const roteador = express.Router()
 
-roteador.get ( "/" ,  controllers.getAll )
-roteador.get ( "/: id" ,  controllers.getById )
-roteador.post ( "/ cadastrar" ,  controllers.createTask ) ;
+roteador.get ("/todos", controllers.getAll )
+roteador.get ("/:id" , controllers.getById)
+roteador.post ("/cadastrar" , controllers.createDev) ;
 
-roteador.post ( "/ cadastrar" ,  controllers.createTask )
-roteador.get ( "/" ,  controllers.getAll ) ;
-roteador.get ( "/: id" ,  controllers.getById ) ;
 
-roteador.delete ( "/: id" ,  controllers.deleteTask )
-roteador.put ( "/: id" ,  controllers.replaceTask ) ;
+roteador.put ("/:id" , controllers.replaceDev ) ;
 
-module.exports =    roteador 
-roteador.delete ( "/: id" ,  controllers.deleteTask ) ;
+roteador.delete ("/:id" , controllers.deleteDev ) ;
 
-module.exports =   roteador ;
+module.exports = roteador

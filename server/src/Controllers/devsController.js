@@ -1,87 +1,67 @@
-const  devsJson  =  require ( "../models/devs.json")
-const  fs  =  require ( "fs" ) ;
+const { request, response } = require("express")
+const devsJson = require ( "../models/devs.json")
 
 
-const  getAll  =  ( request ,  response ) => {
-    response.status ( 200 ).send ( devsJson )
+const getAll = ( request , response ) => {
+    response.status ( 200 ).send ( devsJson )
 }
- ;
+ 
 
-const  getById  =  ( request ,  response )  => {
-    const  idRequirido  =  request.params.id
-    const  devsJson  =  devsJson.find ( devs  =>  devs.id  ==  idRequirido )
+const getById = (request , response) => {
+const idRequirido = request.params.id
+const devs = devsJson.find ( devs => devs.id  == idRequirido )
 
-    response.status ( 200 ).send ( devsJson )
+response.status (200).send (devs)
 };
 
-const  createTask  =  ( request ,  response )  => {
-    const  descricaoRequirida  =  request.corpo.descrição 
-    const createTask = (request, response) => {doadoresJson.push ( novoDev )
- fs.writeFile ( "./src/models/devs.json", JSON.stringify ( devsJson ) ,  'utf8' , function ( err ) {
-         if ( err )  {
-              response.status ( 424 ).send ( { mensagem : err } )
-         }
-     } )
+const createDev = ( request , response ) => {
 
-    response.status ( 201 ).send ( novoDev )
+let novoDev = { 
+        id: Math.random().toString(32).substr(2,6),
+        nome: request.body.nome,
+        email: request.body.email,
+        telefone: request.body.telefone
+}
+devsJson.push(novoDev);
+response.status (201).send (novoDev)
 } ;
 
-    const  replaceTask  =  ( request ,  response )  =>  {
-    const  idRequirido  =  pedido.params.id
-    const  newBody  =  pedido.corpo.descrição
-    const  devFiltrado  =  devsJson.find ( devs  =>  devs.id  ==  idRequirido )
+const replaceDev = ( request , response ) => {
+const idRequirido = request.params.id
+const devAtualizado = request.body
+const devFiltrado = devsJson.find ( devs => devs.id  == idRequirido )
 
-    let  replaceTask  =  {
-        id : devFiltrado . id ,
-        dataInclusao : new  Date ( ) ,
-        concluido : verdadeiro ,
-        descricao : newBody ,
-        nomeDev : devFiltrado . nomeDev
+const indice = devsJson.indexOf(devFiltrado);
 
-    }
-    }
-       const índice =  devsJson.indexOf ( devFiltrado )
+devAtualizado.id = idRequirido ,
 
-    doadoresJson.splice ( index ,  1 ,  replaceTask )
+devsJson.splice ( indice , 1 , devAtualizado )
 
-    fs.writeFile ( "./src/models/devs.json" ,  JSON.stringify ( devsJson ) ,  'utf8' ,  function ( err ) {
-        if ( err )  {
-             response.status ( 424 ).send ( { mensagem : err } )
-        }
-    } )
-
-    response.status ( 200 ) . json ( [ {
-        "mensagem" : "Dev atualizado" ,
-        SubstituiçãoDev
-    } ] )
+response.status (200).json ( [ {
+"mensagem" : "Dev atualizado" ,
+devAtualizado
+} ] )
 
 } ;
 
-    const  deleteTask  =  ( request ,  response ) => {
-    const  devFiltrado  =  pedido.params.eu.id
-    const deleteTask = (request, resposta) => {
-    const  índice  =  devsJson.indexOf ( devFiltrado )
-    devsJson.splice ( índice ,  1 )
+const deleteDev = ( request , response ) => {
+const id = request.params.id
+const devFiltrado = devsJson.find (devs => devs.id  == id)
+const indice = devsJson.indexOf(devFiltrado);
 
-    fs.writeFile ( "./src/models/devs.json" ,  JSON.stringify ( devsJson ) ,  'utf8' ,  function ( err ) {
-        if ( err )  {
-             response.status ( 204 ).enviar ( { mensagem : err } )
-        }
-    } )
-
-    resposta.status ( 200 ).json ( [ {
-        "mensagem" : "Dev deletado com sucesso" ,
-        devsJson
-    } ] )
+devsJson.splice (indice , 1) 
+    response.status (200).json ( [ {
+"mensagem" : "Dev deletado com sucesso" ,
+devsJson
+} ] )
 
 }
-} ;
+;
 
-
-module.exports ={    
-    getAll ,
-    getById ,
-    createTask ,
-    deleteTask
-} 
-    deleteTask 
+module.exports ={
+    getAll,
+    getById,
+    createDev,
+    replaceDev,
+    deleteDev
+}

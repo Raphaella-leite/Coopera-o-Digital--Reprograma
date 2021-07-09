@@ -1,89 +1,67 @@
-const  doadoresJson  =  require ( "../models/doadores.json" )
-const  fs  =  require ( "fs" )
+const { request, response } = require("express")
+const doadoresJson = require ( "../models/doadores.json")
 
 
-const  getAll  =  ( request ,  response ) => {
-    response.status ( 200 ).send ( doadoresJson )
+const getAll = ( request , response ) => {
+    response.status ( 200 ).send ( doadoresJson )
 }
- ;
+ 
 
-const  getById  =  ( request ,  response )  => {
-    const  idRequirido  =  request.params.id
-    const  doadoresJson  =  doadoresJson.find ( doadores  =>  doadores.id  ==  idRequirido )
+const getById = (request , response) => {
+const idRequirido = request.params.id
+const doadores = doadoresJson.find ( doadores => doadores.id  == idRequirido )
 
-    response.status ( 200 ).send ( doadoresJson )
+response.status (200).send (doadores)
 };
 
-const  createTask  =  ( request ,  response )  => {
-    const  descricaoRequirida  =  request.corpo.descrição 
-    const createTask = (request, response) => {doadoresJson.push ( novoDoador )
- fs.writeFile ( "./src/models/doadores.json", JSON.stringify ( doadoresJson ) ,  'utf8' , function ( err ) {
-         if ( err )  {
-              response.status ( 424 ).send ( { mensagem : err } )
-         }
-     } )
+const createDoadores = ( request , response ) => {
 
-    response.status ( 201 ).send ( novoDoador )
+let novoDoador = { 
+        id: Math.random().toString(32).substr(2,6),
+        nome: request.body.nome,
+        email: request.body.email,
+        telefone: request.body.telefone
+}
+doadoresJson.push(novoDoador);
+response.status (201).send (novoDoador)
 } ;
 
-    const  replaceTask  =  ( request ,  response )  =>  {
-    const  idRequirido  =  pedido.params.id
-    const  newBody  =  pedido.corpo.descrição
-    const  doadorFiltrado  =  doadoresJson.find ( doadores  =>  doadores.id  ==  idRequirido )
+const replaceDoador = ( request , response ) => {
+const idRequirido = request.params.id
+const doadorAtualizado = request.body
+const doadorFiltrado = doadoresJson.find (doadores => doadores.id  == idRequirido )
 
-    let  replaceTask  =  {
-        id : doadorFiltrado . id ,
-        dataInclusao : new  Date ( ) ,
-        concluido : verdadeiro ,
-        descricao : newBody ,
-        nomeDoador : doadorFiltrado . nomeDoador
+const indice = doadoresJson.indexOf(doadorFiltrado);
 
-    }
-    }
-       const índice =  doadoresJson.indexOf ( doadorFiltrado )
+doadorAtualizado.id = idRequirido ,
 
-    doadoresJson.splice ( index ,  1 ,  replaceTask )
+doadoresJson.splice ( indice , 1 , doadorAtualizado )
 
-    fs.writeFile ( "./src/models/doadores.json" ,  JSON.stringify ( doadoresJson ) ,  'utf8' ,  function ( err ) {
-        if ( err )  {
-             response.status ( 424 ).send ( { mensagem : err } )
-        }
-    } )
-
-    response.status ( 200 ) . json ( [ {
-        "mensagem" : "Doador atualizado" ,
-        SubstituiçãoDoador
-    } ] )
+response.status (200).json ( [ {
+"mensagem" : "Doador atualizado" ,
+doadorAtualizado
+} ] )
 
 } ;
 
-    const  deleteTask  =  ( request ,  response ) => {
-    const  doadorFiltrado  =  pedido.params.eu.id
-    const deleteTask = (request, resposta) => {
-    const  índice  =  doadoresJson.indexOf ( doadorFiltrado )
-    doadoresJson . splice ( índice ,  1 )
+const deleteDoador = ( request , response ) => {
+const id = request.params.id
+const doadorFiltrado = doadoresJson.find (doadores => doadores.id  == id)
+const indice = doadoresJson.indexOf(doadorFiltrado);
 
-    fs.writeFile ( "./src/models/doadores.json" ,  JSON.stringify ( doadoresJson ) ,  'utf8' ,  function ( err ) {
-        if ( err )  {
-             response.status ( 204 ).enviar ( { mensagem : err } )
-        }
-    } )
-
-    resposta.status ( 200 ).json ( [ {
-        "mensagem" : "Doador deletado com sucesso" ,
-        doadoresJson
-    } ] )
+doadoresJson.splice (indice , 1) 
+    response.status (200).json ( [ {
+"mensagem" : "Doador deletado com sucesso" ,
+doadoresJson
+} ] )
 
 }
-} ;
+;
 
-
-module.exports ={    
-    getAll ,
-    getById ,
-    createTask ,
-    deleteTask
-} 
-    deleteTask ,
-    substituirTask
- ; 
+module.exports ={
+    getAll,
+    getById,
+    createDoadores,
+    replaceDoador,
+    deleteDoador
+}

@@ -1,89 +1,65 @@
-const  itensJson  =  require ( "../models/itens.json" )
-const  fs  =  require ( "fs" )
+const { request, response } = require("express")
+const itensJson = require ( "../models/itens.json")
 
 
-const  getAll  =  ( request ,  response ) => {
-    response.status ( 200 ).send ( itensJson )
+const getAll = ( request , response ) => {
+    response.status (200).send ( itensJson )
 }
- ;
+ 
 
-const  getById  =  ( request ,  response )  => {
-    const  idRequirido  =  request.params.id
-    const  itensJson  =  itensJson.find ( itens  =>  itens.id  ==  idRequirido )
+const getById = (request , response) => {
+const idRequirido = request.params.id
+const itens = itensJson.find ( itens => itens.id  == idRequirido )
 
-    response.status ( 200 ).send ( itens )
+response.status (200).send (itens)
 };
 
-const  createTask  =  ( request ,  response )  => {
-    const  descricaoRequirida  =  request.corpo.descrição 
-    const createTask = (request, response) => {itensJson.push ( novoIten )
- fs.writeFile ( "./src/models/itens.json", JSON.stringify ( itensJson ) ,  'utf8' , function ( err ) {
-         if ( err )  {
-              response.status ( 424 ).send ( { mensagem : err } )
-         }
-     } )
+const createItens = ( request , response ) => {
 
-    response.status ( 201 ).send ( novoIten )
+let novoItem = { 
+        id: Math.random().toString(32).substr(2,6),
+        nome: request.body.nome,
+}
+itensJson.push(novoItem);
+response.status (201).send (novoItem)
 } ;
 
-    const  replaceTask  =  ( request ,  response )  =>  {
-    const  idRequirido  =  pedido.params.id
-    const  newBody  =  pedido.corpo.descrição
-    const  itenFiltrado  =  itensJson.find ( itens  =>  itens.id  ==  idRequirido )
+const replaceItem = ( request , response ) => {
+const idRequirido = request.params.id
+const itemAtualizado = request.body
+const itemFiltrado = itensJson.find ( itens => itens.id  == idRequirido )
 
-    let  replaceTask  =  {
-        id : itenFiltrado . id ,
-        dataInclusao : new  Date ( ) ,
-        concluido : verdadeiro ,
-        descricao : newBody ,
-        nomeIten : itenFiltrado . nomeIten
+const indice = itensJson.indexOf(itemFiltrado);
 
-    }
-    }
-       const índice =  itensJson.indexOf ( itenFiltrado )
+itemAtualizado.id = idRequirido ,
 
-    itensJson.splice ( index ,  1 ,  replaceTask )
+itensJson.splice ( indice , 1 , itemAtualizado )
 
-    fs.writeFile ( "./src/models/itens.json" ,  JSON.stringify ( itensJson ) ,  'utf8' ,  function ( err ) {
-        if ( err )  {
-             response.status ( 424 ).send ( { mensagem : err } )
-        }
-    } )
-
-    response.status ( 200 ) . json ( [ {
-        "mensagem" : "Item atualizado" ,
-        SubstituiçãoItem
-    } ] )
+response.status (200).json ( [ {
+"mensagem" : "Item atualizado" ,
+itemAtualizado
+} ] )
 
 } ;
 
-    const  deleteTask  =  ( request ,  response ) => {
-    const  itenFiltrado  =  pedido.params.eu.id
-    const deleteTask = (request, resposta) => {
-    const  índice  =  itensJson.indexOf ( itenFiltrado )
-    itensJson . splice ( índice ,  1 )
+const deleteItem = ( request , response ) => {
+const id = request.params.id
+const itemFiltrado = itensJson.find (itens => itens.id  == id)
+const indice = itensJson.indexOf(itemFiltrado);
 
-    fs.writeFile ( "./src/models/itens.json" ,  JSON.stringify ( itensJson ) ,  'utf8' ,  function ( err ) {
-        if ( err )  {
-             response.status ( 204 ).enviar ( { mensagem : err } )
-        }
-    } )
-
-    resposta.status ( 200 ).json ( [ {
-        "mensagem" : "Item deletado com sucesso" ,
-        itensJson
-    } ] )
+itensJson.splice (indice , 1) 
+    response.status (200).json ( [ {
+"mensagem" : "Item deletado com sucesso" ,
+itensJson
+} ] )
 
 }
-} ;
+;
 
-
-module.exports ={    
-    getAll ,
-    getById ,
-    createTask ,
-    deleteTask
-} 
-    deleteTask ,
-    substituirTask
- ; 
+module.exports ={
+    getAll,
+    getById,
+    createItens,
+    replaceItem,
+    deleteItem
+}

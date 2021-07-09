@@ -1,18 +1,14 @@
-const  controllers  =  require ( "../controllers/doadoresController.js" )
-const  express  =  require ( "express" ) ;
+const controllers = require ("../controllers/doadoresController")
+const express = require ("express") ;
+const roteador = express.Router()
 
-roteador.get ( "/" ,  controllers.getAll )
-roteador.get ( "/: id" ,  controllers.getById )
-roteador.post ( "/ cadastrar" ,  controllers.createTask ) ;
+roteador.get ("/todos/doadores", controllers.getAll )
+roteador.get ("/:id/doadores" , controllers.getById)
+roteador.post ("/cadastrar/doadores" , controllers.createDoadores) ;
 
-roteador.post ( "/ cadastrar" ,  controllers.createTask )
-roteador.get ( "/" ,  controllers.getAll ) ;
-roteador.get ( "/: id" ,  controllers.getById ) ;
 
-roteador.delete ( "/: id" ,  controllers.deleteTask )
-roteador.put ( "/: id" ,  controllers.replaceTask ) ;
+roteador.put ("/:id/doadores" , controllers.replaceDoador ) ;
 
-module.exports =    roteador 
-roteador.delete ( "/: id" ,  controllers.deleteTask ) ;
+roteador.delete ("/:id/doadores" , controllers.deleteDoador ) ;
 
-module.exports =   roteador ;
+module.exports = roteador
